@@ -32,15 +32,13 @@ impl Read for InputStream {
     }
 }
 
-fn try_open(path: &str) -> Result<InputStream, Error> {
-    let file = try!(File::open(path));
-    Ok(InputStream::file(file))
-}
-
 pub fn from(path: &str) -> Result<BufReader<InputStream>, Error> {
     let input = try!(match path {
         "-" => Ok(InputStream::live(stdin())),
-        _ => try_open(path)
+        _ => || -> Result<InputStream, Error> {
+            let file = try!(File::open(path));
+            Ok(InputStream::file(file))
+        } ()
     });
     Ok(BufReader::new(input))
 }
