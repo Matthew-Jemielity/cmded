@@ -6,40 +6,40 @@ use std::io::stdin;
 use std::io::Stdin;
 
 enum Stream {
-    Live(Stdin),
-    File(File)
+  Live(Stdin),
+  File(File)
 }
 
 pub struct InputStream {
-    which: Stream,
+  which: Stream,
 }
 
 impl InputStream {
-    fn live(from: Stdin) -> InputStream {
-        InputStream { which: Stream::Live(from) }
-    }
-    fn file(from: File) -> InputStream {
-        InputStream { which: Stream::File(from) }
-    }
+  fn live(from: Stdin) -> InputStream {
+    InputStream { which: Stream::Live(from) }
+  }
+  fn file(from: File) -> InputStream {
+    InputStream { which: Stream::File(from) }
+  }
 }
 
 impl Read for InputStream {
-    fn read(&mut self, buf: &mut [u8]) -> Result<usize, Error> {
-        match self.which {
-            Stream::Live(ref mut from) => from.read(buf),
-            Stream::File(ref mut from) => from.read(buf)
-        }
+  fn read(&mut self, buf: &mut [u8]) -> Result<usize, Error> {
+    match self.which {
+      Stream::Live(ref mut from) => from.read(buf),
+      Stream::File(ref mut from) => from.read(buf)
     }
+  }
 }
 
 pub fn from(path: &str) -> Result<BufReader<InputStream>, Error> {
-    let input = try!(match path {
-        "-" => Ok(InputStream::live(stdin())),
-        _ => || -> Result<InputStream, Error> {
-            let file = try!(File::open(path));
-            Ok(InputStream::file(file))
-        } ()
-    });
-    Ok(BufReader::new(input))
+  let input = try!(match path {
+    "-" => Ok(InputStream::live(stdin())),
+    _ => || -> Result<InputStream, Error> {
+      let file = try!(File::open(path));
+      Ok(InputStream::file(file))
+    } ()
+  });
+  Ok(BufReader::new(input))
 }
 
