@@ -23,10 +23,9 @@ fn get_lines(path: &str, range: &str) -> i32 {
 
   let mut count = 1;
   for line in stream.lines() {
-    if start <= count && count <= end {
-      println!("{}", line.unwrap());
-    }
+    if start <= count && count <= end { println!("{}", line.unwrap()); }
     count += 1;
+    if count > end { break; }
   }
   0
 }
