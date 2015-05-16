@@ -2,7 +2,7 @@
 Set of command line tools for getting and setting lines in files, written in Rust. Work in progress.
 
 cmded-getline <-|filepath> <line number>[..<$|line number>]
-    print specific line(s) from standard input or given file
+    Print specific line(s) from standard input or given file.
 Examples:
 a)
     cat /etc/apt/sources.list | cmded-getline - 5
