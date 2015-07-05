@@ -1,8 +1,10 @@
+#![feature(core)]
+
 extern crate core;
 use self::core::num::ParseIntError;
 use self::core::u64;
 
-pub fn from(range: &str) -> Result<(u64, u64), ParseIntError> {
+pub fn ranger(range: &str) -> Result<(u64, u64), ParseIntError> {
   let tokens: Vec<_> = range.split("..").collect();
   assert!(0 < tokens.len());
   let start = try!(tokens[0].parse::<u64>());

@@ -1,7 +1,4 @@
 [package]
-name = "cmded-getline"
+name = "cmded-utils"
 version = "0.1.0"
 authors = ["Mateusz Jemielity <matthew.jemielity@gmail.com>"]
-
-[dependencies.cmded-utils]
-path="../cmded-utils"

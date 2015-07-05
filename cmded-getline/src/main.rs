@@ -1,8 +1,10 @@
-#![feature(core, exit_status)]
+#![feature(exit_status)]
+
+extern crate cmded_utils;
 
 use std::env;
 use std::io::BufRead;
-mod ranger;
+use cmded_utils::ranger;
 mod streamer;
 
 fn help() -> i32 {
@@ -16,7 +18,7 @@ macro_rules! validate {
 
 fn get_lines(path: &str, range: &str) -> i32 {
   let stream = validate!(streamer::from(path));
-  let (start, end) = validate!(ranger::from(range));
+  let (start, end) = validate!(ranger(range));
   if 1 > start || start > end {
     return help();
   }

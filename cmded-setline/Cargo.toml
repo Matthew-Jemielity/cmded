@@ -2,3 +2,6 @@
 name = "cmded-setline"
 version = "0.1.0"
 authors = ["Mateusz Jemielity <matthew.jemielity@gmail.com>"]
+
+[depends.cmded-utils]
+path = "../cmded-utils"
